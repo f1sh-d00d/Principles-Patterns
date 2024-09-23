@@ -84,8 +84,8 @@ class AverageObserver(StockObserver):
 
     def update(self, notify_data):
         prices = []
-        date = " ".join(notify_data.pop(0).split(" ")[2:])
-        for row in notify_data:
+        date = " ".join(notify_data[0].split(" ")[2:])
+        for row in notify_data[1:]:
             prices.append(float(row["price"]))
 
         avg_price = sum(prices) / len(prices)
@@ -94,10 +94,82 @@ class AverageObserver(StockObserver):
             fout.write(f"{date}, Average Price: {round(avg_price, 10)}\n")
 
 
+class HighLowObserver(StockObserver):
+    '''concrete StockObserver implementation for finding which companies closed within 1% of their 52 week high or low'''
+    def __init__(self, subject):
+        self.subject = subject
+
+
+    def checkHigh(self, high, price):
+        '''checks if a stock price is within 1% of the 52 week high or higher'''
+        percent = float(high)/100
+        
+        if high == "0":
+            if float(price) < 0.3:
+                return True
+
+        if float(price) >= (float(high) - percent):
+            return True
+        
+        return False
+
+
+    def checkLow(self, low, price):
+        '''checks if a stock price is within 1% of the 52 week low or lower'''
+        percent = float(low)/100
+
+        if float(price) <= (float(low) + percent):
+            return True
+
+        return False
+
+
+    def update(self, notify_data):
+        with open("HighLow.dat", "a") as fout:        
+            date = notify_data[0]
+            fout.write(f"{date}\n")
+
+            for row in notify_data[1:]:
+                high = row["52high"]
+                low = row["52low"]
+                price = row["price"]
+             
+                if self.checkHigh(high, price) or self.checkLow(low, price):
+                    fout.write(f'{row["symbol"]}: {price}, {high}, {low}\n')
+            fout.write("\n")
+
+
+class SelectionsObserver(StockObserver):
+    '''concrete implementation to observe only certain stocks'''
+    def __init__(self, subject):
+        self.subject = subject
+
+
+    def update(self, notify_data):
+        symbols = ["ALL", "BA", "BC", "GBEL", "KFT", "MCD" "TR", "WAG"]
+        
+        with open("Selections.dat", "a") as fout:
+            date = notify_data[0]
+            fout.write(f"{date}\n")
+            for row in notify_data[1:]:
+                if row["symbol"] in symbols:
+                    fout.write(f'{row["company"]}, {row["symbol"]}, {row["price"]}, {row["change$"]}, {row["change%"]}, {row["YTDchange"]}, {row["52high"]}, {row["52low"]}, {row["ratio"]}\n')
+            fout.write("\n")
+
+        
+
+
 def main():
     stockMonitor = LocalStocks()
+    
     avgObserver = AverageObserver(stockMonitor)
+    highLow = HighLowObserver(stockMonitor)
+    selectObs = SelectionsObserver(stockMonitor)
+
     stockMonitor.addObserver(avgObserver)
+    stockMonitor.addObserver(highLow)
+    stockMonitor.addObserver(selectObs)
+
     stockMonitor.monitorStocks()
 
 
