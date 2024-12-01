@@ -1,0 +1,23 @@
+top:
+   file1
+   middle:
+      file2
+      file3
+      bottom:
+         file4
+         reallydeep:
+            deepfile1
+            deepfile2
+            deepfile3
+            deepfile4
+         file5
+      file6
+   file7
+   another:
+      file8
+      adeeper1:
+      adeeper2:
+         adeepest:
+            waywaydeep:
+   file9
+   yetanother:

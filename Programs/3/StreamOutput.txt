@@ -1,0 +1,2 @@
+[1: Like Smalltalk, Python supports class methods, which differ from static]
+[2: This requires some perusing if you're new to Python.  Python requires]

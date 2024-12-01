@@ -1,0 +1,34 @@
+Like Smalltalk, Python supports class methods, which differ from static 
+methods in that the exact dynamic type of the object being operated on is 
+an implicit parameter to the method (as a type object).  The following 
+example keeps a separate per-class object counter for every class in a 
+hierarchy (in this case, a Shape hierarchy): 
+
+class Shape(object):
+    _count = 0	# A shared value for Shape classes with no current objects
+  	
+    @classmethod
+    def _incr(cls):
+        cls._count += 1         # Create/update class attribute
+      
+    @classmethod
+    def showCount(cls):
+        print 'Class %s has count = %s' % (cls.__name__, cls._count)
+        
+    def __init__(self):		# A constructor
+        self._incr()
+
+class Point(Shape): pass	# An empty subclass of Shape
+class Line(Shape): pass		# Ditto
+
+This requires some perusing if you're new to Python.  Python requires 
+indentation to show logical subordination (whereas good programmers of 
+other languages indent by convention), so you can readily see that the 
+class Shape has three methods, _incr, showCount, and __init__.  The latter 
+is the special name used for constructors.  The other two methods are 
+class methods (indicated by the @classmethod prefix), so their parameter 
+is the unique class object for the instance on which they are invoked.  
+(The term "class object" here refers to a unique, bona fide object that 
+describes a class type, similar to, but more robust than, std::type_info 
+objects in C++.) The method named _incr is only called by the constructor.  
+

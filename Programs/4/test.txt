@@ -1,0 +1,12 @@
+A one key1 value1
+A three key1 val one
+U three key6 val6
+R three key5
+A three key1 val one
+B
+A one key2 value two
+A one key3 value3
+E
+A two key4 value four
+R one key1
+U two key4 value4

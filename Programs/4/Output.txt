@@ -1,0 +1,136 @@
+Key 'key999' not in database 'one'
+
+Beginning a Macro
+Ending a Macro
+
+Key 'key44' already exists in database 'two'
+Key 'keyNotThere' not in database 'one'
+Key 'BadKey' not in database 'two'
+
+Beginning a Macro
+Ending a Macro
+
+
+Beginning a Macro
+Ending a Macro
+
+
+Beginning a Macro
+Ending a Macro
+
+Contents of databases:
+Database one:
+key2| value two
+key3| value3
+key9| Key9
+
+Database two:
+key4| value4
+key44| value fourtyfour
+key5| FiveValue
+key6| value 6
+
+Database Flintstone:
+Fred| Flintstone
+Barney| Rubble
+
+Undoing Update Command
+Database two:
+key4| value4
+key44| value fourtyfour
+key5| FiveValue
+key6| value 6
+
+Undoing Add Command
+Database Flintstone:
+Fred| Flintstone
+Barney| Rubble
+
+Undoing Remove Command
+Database one:
+key2| value two
+key3| value3
+key9| Key9
+
+
+Begin Undoing Macro
+
+Begin Undoing Macro
+Undoing Update Command
+Database two:
+key4| value four
+key44| value fourtyfour
+key5| FiveValue
+key6| value 6
+
+
+Begin Undoing Macro
+Undoing Add Command
+Database Flintstone:
+Fred| Flintstone
+
+Cannot undo Update Command because Update Command did not execute
+End Undoing Macro
+
+Undoing Add Command
+Database one:
+key2| value two
+key3| value3
+key9| Key9
+key1| value1
+
+End Undoing Macro
+
+Cannot undo Remove Command because Remove Command did not execute
+Undoing Add Command
+Database two:
+key4| value four
+key44| value fourtyfour
+key5| value five
+key6| value 6
+
+End Undoing Macro
+
+Undoing Add Command
+Database two:
+key4| value four
+key44| value fourtyfour
+key5| value five
+
+Cannot undo Add Command because Add Command did not execute
+Undoing Add Command
+Database two:
+key4| value four
+key44| value fourtyfour
+
+Undoing Add Command
+Database two:
+key4| value four
+
+
+Begin Undoing Macro
+Cannot undo Remove Command because Remove Command did not execute
+Undoing Add Command
+Database one:
+key2| value two
+key3| value3
+key1| value1
+
+Undoing Add Command
+Database one:
+key2| value two
+key1| value1
+
+End Undoing Macro
+
+Undoing Add Command
+Database one:
+key1| value1
+
+Contents of databases:
+Database one:
+
+Database two:
+
+Database Flintstone:
+
